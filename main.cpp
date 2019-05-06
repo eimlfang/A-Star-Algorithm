@@ -18,24 +18,22 @@ vector<int> ParseLine(string line) {
 }
 
 vector<vector<int>> ReadBoarderFile(string path) {
-    ifstream my_file;
-    my_file.open(path);
+    ifstream my_file(path);
+    vector<vector<int>> board{};
     if (my_file) {
         string line;
-        vector<vector<int>> v;
         while (getline(my_file, line)) {
-            vector<int> l = ParseLine(line);
-            v.push_back(l);
+            vector<int> row = ParseLine(line);
+            board.push_back(row);
         }
-        return v;
     }
+    return board;
 }
 
-void PrintBoard(vector<vector<int>> v) {
-    cout << "PrintBoard" << "\n";
-    for (int i = 0; i < v.size(); ++i) {
-        for (int j = 0; j < v[i].size(); ++j) {
-            cout << v[i][j] << " ";
+void PrintBoard(vector<vector<int>> board) {
+    for (int i = 0; i < board.size(); ++i) {
+        for (int j = 0; j < board[i].size(); ++j) {
+            cout << board[i][j] << " ";
         }
         cout << endl;
     }
@@ -43,6 +41,5 @@ void PrintBoard(vector<vector<int>> v) {
 
 int main() {
     auto board = ReadBoarderFile("/Users/eimlfang/Documents/FZJ/Project/A-Star-Algorithm/1.board");
-    cout << "After read" << endl;
     PrintBoard(board);
 }
