@@ -11,16 +11,16 @@ enum class State {kEmpty, kObstacle};
 string CellString(State cell) {
     switch (cell) {
         case State::kObstacle:
-            return "⛰️ ";
+            return "⛰️   ";
         default:
-            return "0 ";
+            return "0   ";
     }
 }
 
 vector<State> ParseLine(string line) {
+    istringstream sline(line);
     char c;
     int n;
-    istringstream sline(line);
     vector<State> row;
     while (sline >> n >> c && c == ',') {
         if (n == 0) {
