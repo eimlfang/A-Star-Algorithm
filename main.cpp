@@ -8,20 +8,13 @@ using namespace std;
 
 enum class State {kEmpty, kObstacle};
 
-string CellString(State s) {
-    string ss;
-    switch (s) {
-        case State::kEmpty:
-            ss = "0";
-            break;
+string CellString(State cell) {
+    switch (cell) {
         case State::kObstacle:
-            ss = "⛰️ ";
-            break;
+            return "⛰️ ";
         default:
-            ss = "0";
-            break;
+            return "0 ";
     }
-    return ss;
 }
 
 vector<int> ParseLine(string line) {
