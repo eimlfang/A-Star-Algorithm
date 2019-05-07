@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum class State {kEmpty, kObstacle};
+enum class State {kEmpty, kObstacle, kClosed};
 
 string CellString(State cell) {
     switch (cell) {
@@ -63,6 +63,14 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
 
 int Heuristic(int x1, int y1, int x2, int y2) {
     return abs(x2-x1) + abs(y2-y1);
+}
+
+void AddToOne(int x, int y, int g, int h,
+        vector<vector<int>> *openNodes,
+        vector<vector<State>> *grid) {
+    vector<int> node{x, y, g, h};
+    openNodes->push_back(node);
+    grid[x][y] = State::kClosed;
 }
 
 int main() {
