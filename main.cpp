@@ -65,11 +65,11 @@ int Heuristic(int x1, int y1, int x2, int y2) {
     return abs(x2-x1) + abs(y2-y1);
 }
 
-void AddToOne(int x, int y, int g, int h,
-        vector<vector<int>> *openNodes,
-        vector<vector<State>> *grid) {
+void AddToOpen(int x, int y, int g, int h,
+        vector<vector<int>> &openList,
+        vector<vector<State>> &grid) {
     vector<int> node{x, y, g, h};
-    openNodes->push_back(node);
+    openList.push_back(node);
     grid[x][y] = State::kClosed;
 }
 
