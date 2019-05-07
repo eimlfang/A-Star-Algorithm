@@ -54,15 +54,15 @@ void PrintBoard(vector<vector<State>> board) {
     }
 }
 
-vector<vector<State>> Search(vector<vector<State>> board, int start[2], int goal[2]) {
+vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]) {
     cout << "No path found!" << endl;
     return vector<vector<State>> {};
 }
 
 int main() {
     auto board = ReadBoarderFile("/Users/eimlfang/Documents/FZJ/Project/A-Star-Algorithm/1.board");
-    int start[2] = {0, 0};
-    int goal[2] = {4, 5};
-    auto solution = Search(board, start, goal);
+    int init[2]{0, 0};
+    int goal[2]{4, 5};
+    auto solution = Search(board, init, goal);
     PrintBoard(solution);
 }
