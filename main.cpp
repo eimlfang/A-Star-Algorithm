@@ -41,6 +41,8 @@ vector<vector<State>> ReadBoarderFile(string path) {
             vector<State> row = ParseLine(line);
             board.push_back(row);
         }
+    }else {
+        cout << "Read file failed, path is " << path << endl;
     }
     return board;
 }
@@ -59,10 +61,20 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
     return vector<vector<State>> {};
 }
 
+int Heuristic(int x1, int y1, int x2, int y2) {
+    return abs(x2-x1) + abs(y2-y1);
+}
+
 int main() {
-    auto board = ReadBoarderFile("/Users/eimlfang/Documents/FZJ/Project/A-Star-Algorithm/1.board");
-    int init[2]{0, 0};
-    int goal[2]{4, 5};
-    auto solution = Search(board, init, goal);
-    PrintBoard(solution);
+#ifdef _WIN32
+ string path = "D:\\Developer\\A-Star-Algorithm\\1.board";
+#else
+    string path = "/Users/eimlfang/Documents/FZJ/Project/A-Star-Algorithm/1.board";
+#endif
+    auto board = ReadBoarderFile(path);
+    PrintBoard(board);
+//    int init[2]{0, 0};
+//    int goal[2]{4, 5};
+//    auto solution = Search(board, init, goal);
+//    PrintBoard(solution);
 }
