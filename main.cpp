@@ -11,7 +11,7 @@ vector<int> ParseLine(string line) {
     int n;
     istringstream sline(line);
     vector<int> row;
-    while (sline >> c >> n && c == ',') {
+    while (sline >> n >> c && c == ',') {
         row.push_back(n);
     }
     return row;
