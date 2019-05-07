@@ -6,6 +6,24 @@
 
 using namespace std;
 
+enum class State {kEmpty, kObstacle};
+
+string CellString(State s) {
+    string ss;
+    switch (s) {
+        case State::kEmpty:
+            ss = "0";
+            break;
+        case State::kObstacle:
+            ss = "⛰️ ";
+            break;
+        default:
+            ss = "0";
+            break;
+    }
+    return ss;
+}
+
 vector<int> ParseLine(string line) {
     char c;
     int n;
