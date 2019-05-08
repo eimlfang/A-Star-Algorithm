@@ -104,30 +104,30 @@ bool CheckValidCell(int x, int y, vector<vector<State>> &grid) {
     return false;
 }
 
-void ExpandNeighbors(vector<int> &current, vector<vector<int>> &openList,
-                     vector<vector<State>> &grid,
-                     int goal[2]) {
+void ExpandNeighbors(vector<int> &current,
+                     int goal[2],
+                     vector<vector<int>> &openList,
+                     vector<vector<State>> &grid
+) {
 
     // Get current node's data.
     int x = current[0];
     int y = current[1];
     int g = current[2];
-    int h = current[3];
 
-    // TODO: Loop through current node's potential neighbors.
+    // Loop through current node's potential neighbors.
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
         auto move = delta[i];
         auto x2 = x + move[0];
         auto y2 = y + move[1];
-        // TODO: Check that the potential neighbor's x2 and y2 values are on the grid and not closed.
-        bool on_grid_x = ( x2 >= 0 && x2 < grid.size());
-        bool on_grid_y = ( y2 >= 0 && y2 < grid[x2].size());
-        if (on_grid_x && on_grid_y && grid[x2][y2] != State::kClosed) {
-            // TODO: Increment g value, compute h value, and add neighbor to open list.
-            g += 1;
-            h = Heuristic(x, y, x2, y2);
-            openList.push_back(vector<int>{x2, y2, g, h});
+
+        // Check that the potential neighbor's x2 and y2 values are on the grid and not closed.
+        if (CheckValidCell(x2, y2, grid)) {
+            // Increment g value, compute h value, and add neighbor to open list.
+            int g2 = g + 1;
+            int h2 = Heuristic(x, y, goal[0], goal[1]);
+            AddToOpen(x2, y2, g2, h2, openList, grid);
         }
     }
 }
