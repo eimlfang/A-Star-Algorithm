@@ -76,7 +76,11 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
     int y = init[1];
     int g = 0;
     int h = Heuristic(x, y, goal[0], goal[1]);
-    open.push_back(vector<int>{x, y, g, h});
+
+    AddToOpen(x, y, g, h, open, grid);
+
+    cout << "No path found!" << "\n";
+
     return vector<vector<State>>{};
 }
 
