@@ -16,6 +16,8 @@ string CellString(State cell) {
     switch (cell) {
         case State::kObstacle:
             return "⛰️   ";
+        case State::kPath:
+            return "🚗   ";
         default:
             return "0   ";
     }
@@ -88,12 +90,11 @@ void AddToOpen(int x, int y, int g, int h,
 
 bool CheckValidCell(int x, int y, vector<vector<State>> &grid) {
     // Check x and y is on the grid
-    if (x < grid.size() && y < grid[x].size()) {
-        // Check grid at (x, y) is kEmpty
-        if (grid[x][y] == State::kEmpty) {
-            return true;
-        }
-    }
+    bool on_grid_x = (x >= 0 && x < grid.size());
+    bool on_grid_y = (y >= 0 && y < grid[x].size());
+    // Check grid at (x, y) is kEmpty
+    if (on_grid_x && on_grid_y)
+        return grid[x][y] == State::kEmpty;
     return false;
 }
 
