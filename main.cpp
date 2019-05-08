@@ -86,6 +86,17 @@ void AddToOpen(int x, int y, int g, int h,
     grid[x][y] = State::kClosed;
 }
 
+bool CheckValidCell(int x, int y, vector<vector<State>> &grid) {
+    // Check x and y is on the grid
+    if (x < grid.size() && y < grid[x].size()) {
+        // Check grid at (x, y) is kEmpty
+        if (grid[x][y] == State::kEmpty) {
+            return true;
+        }
+    }
+    return false;
+}
+
 vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]) {
     vector<vector<int>> open{};
 
