@@ -11,6 +11,12 @@ enum class State {
     kEmpty, kObstacle, kClosed, kPath
 };
 
+// directional deltas
+const int delta[4][2]{{-1, 0},
+                      {0,  -1},
+                      {1,  0},
+                      {0,  1}};
+
 
 string CellString(State cell) {
     switch (cell) {
@@ -98,6 +104,34 @@ bool CheckValidCell(int x, int y, vector<vector<State>> &grid) {
     return false;
 }
 
+void ExpandNeighbors(vector<int> &current, vector<vector<int>> &openList,
+                     vector<vector<State>> &grid,
+                     int goal[2]) {
+
+    // Get current node's data.
+    int x = current[0];
+    int y = current[1];
+    int g = current[2];
+    int h = current[3];
+
+    // TODO: Loop through current node's potential neighbors.
+
+    for (int i = 0; i < 3; i++) {
+        auto move = delta[i];
+        auto x2 = x + move[0];
+        auto y2 = y + move[1];
+        // TODO: Check that the potential neighbor's x2 and y2 values are on the grid and not closed.
+        bool on_grid_x = ( x2 >= 0 && x2 < grid.size());
+        bool on_grid_y = ( y2 >= 0 && y2 < grid[x2].size());
+        if (on_grid_x && on_grid_y && grid[x2][y2] != State::kClosed) {
+            // TODO: Increment g value, compute h value, and add neighbor to open list.
+            g += 1;
+            h = Heuristic(x, y, x2, y2);
+            openList.push_back(vector<int>{x2, y2, g, h});
+        }
+    }
+}
+
 vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]) {
     vector<vector<int>> open{};
 
@@ -108,22 +142,22 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
 
     AddToOpen(x, y, g, h, open, grid);
 
-    while(open.size() > 0) {
-    // Sort the open list using `CellSort`, and get the current node.
+    while (open.size() > 0) {
+        // Sort the open list using `CellSort`, and get the current node.
         CellSort(&open);
-    // Get the x and y values from the current node,
-    // and set grid[x][y] to kPath.
+        // Get the x and y values from the current node,
+        // and set grid[x][y] to kPath.
         auto currentNode = open.back();
         x = currentNode[0];
         y = currentNode[1];
         grid[x][y] = State::kPath;
-    // Check if you've reached the goal. If so, return grid.
+        // Check if you've reached the goal. If so, return grid.
         if (x == goal[0] && y == goal[1]) {
             return grid;
         }
 
-    // If we're not done, expand search to current node's neighbors. This step will be completed in a later quiz.
-    // ExpandNeighbors
+        // If we're not done, expand search to current node's neighbors. This step will be completed in a later quiz.
+        // ExpandNeighbors
 
     }
     return vector<vector<State>>{};
