@@ -60,18 +60,6 @@ void PrintBoard(vector<vector<State>> board) {
     }
 }
 
-int Heuristic(int x1, int y1, int x2, int y2) {
-    return abs(x2 - x1) + abs(y2 - y1);
-}
-
-void AddToOpen(int x, int y, int g, int h,
-               vector<vector<int>> &openList,
-               vector<vector<State>> &grid) {
-    vector<int> node{x, y, g, h};
-    openList.push_back(node);
-    grid[x][y] = State::kClosed;
-}
-
 bool Compare(vector<int> a, vector<int> b) {
     int f1 = a[2] + a[3];
     int f2 = b[2] + b[3];
@@ -86,8 +74,21 @@ void CellSort(vector<vector<int>> *v) {
     sort(v->begin(), v->end(), Compare);
 }
 
+int Heuristic(int x1, int y1, int x2, int y2) {
+    return abs(x2 - x1) + abs(y2 - y1);
+}
+
+void AddToOpen(int x, int y, int g, int h,
+               vector<vector<int>> &openList,
+               vector<vector<State>> &grid) {
+    vector<int> node{x, y, g, h};
+    openList.push_back(node);
+    grid[x][y] = State::kClosed;
+}
+
 vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]) {
     vector<vector<int>> open{};
+
     int x = init[0];
     int y = init[1];
     int g = 0;
@@ -95,18 +96,17 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
 
     AddToOpen(x, y, g, h, open, grid);
 
-    cout << "No path found!" << "\n";
     while(open.size() > 0) {
     // Sort the open list using `CellSort`, and get the current node.
         CellSort(&open);
     // Get the x and y values from the current node,
     // and set grid[x][y] to kPath.
-        vector<int> currentNode = open[0];
+        auto currentNode = open.back();
         x = currentNode[0];
         y = currentNode[1];
         grid[x][y] = State::kPath;
     // Check if you've reached the goal. If so, return grid.
-        if (x == goal[0] && y == goal[y]) {
+        if (x == goal[0] && y == goal[1]) {
             return grid;
         }
 
