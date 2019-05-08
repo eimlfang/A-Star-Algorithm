@@ -3,12 +3,14 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <algorithm> // for sort
 
 using namespace std;
 
 enum class State {
-    kEmpty, kObstacle, kClosed
+    kEmpty, kObstacle, kClosed, kPath
 };
+
 
 string CellString(State cell) {
     switch (cell) {
@@ -76,6 +78,14 @@ bool Compare(vector<int> a, vector<int> b) {
     return f1 > f2;
 }
 
+/**
+ * 二维int向量排序，根据Compare函数规则
+ * @param v
+ */
+void CellSort(vector<vector<int>> *v) {
+    sort(v->begin(), v->end(), Compare);
+}
+
 vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]) {
     vector<vector<int>> open{};
     int x = init[0];
@@ -86,7 +96,24 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
     AddToOpen(x, y, g, h, open, grid);
 
     cout << "No path found!" << "\n";
+    while(open.size() > 0) {
+    // Sort the open list using `CellSort`, and get the current node.
+        CellSort(&open);
+    // Get the x and y values from the current node,
+    // and set grid[x][y] to kPath.
+        vector<int> currentNode = open[0];
+        x = currentNode[0];
+        y = currentNode[1];
+        grid[x][y] = State::kPath;
+    // Check if you've reached the goal. If so, return grid.
+        if (x == goal[0] && y == goal[y]) {
+            return grid;
+        }
 
+    // If we're not done, expand search to current node's neighbors. This step will be completed in a later quiz.
+    // ExpandNeighbors
+
+    }
     return vector<vector<State>>{};
 }
 
