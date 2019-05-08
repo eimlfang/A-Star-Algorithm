@@ -8,7 +8,7 @@
 using namespace std;
 
 enum class State {
-    kEmpty, kObstacle, kClosed, kPath
+    kEmpty, kObstacle, kClosed, kPath, kStart, kFinish
 };
 
 // directional deltas
@@ -24,6 +24,10 @@ string CellString(State cell) {
             return "⛰️   ";
         case State::kPath:
             return "🚗   ";
+        case State::kStart:
+            return "🚦 ";
+        case State::kFinish:
+            return "🏁 ";
         default:
             return "0   ";
     }
