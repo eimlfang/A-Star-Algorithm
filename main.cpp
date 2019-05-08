@@ -70,6 +70,10 @@ void AddToOpen(int x, int y, int g, int h,
     grid[x][y] = State::kClosed;
 }
 
+bool Compare(vector<int> a, vector<int> b) {
+    return (a[2] + a[3]) > (b[2] + b[3]);
+}
+
 vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]) {
     vector<vector<int>> open{};
     int x = init[0];
