@@ -71,7 +71,9 @@ void AddToOpen(int x, int y, int g, int h,
 }
 
 bool Compare(vector<int> a, vector<int> b) {
-    return (a[2] + a[3]) > (b[2] + b[3]);
+    int f1 = a[2] + a[3];
+    int f2 = b[2] + b[3];
+    return f1 > f2;
 }
 
 vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]) {
