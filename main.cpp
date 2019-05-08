@@ -6,7 +6,9 @@
 
 using namespace std;
 
-enum class State {kEmpty, kObstacle, kClosed};
+enum class State {
+    kEmpty, kObstacle, kClosed
+};
 
 string CellString(State cell) {
     switch (cell) {
@@ -41,7 +43,7 @@ vector<vector<State>> ReadBoarderFile(string path) {
             vector<State> row = ParseLine(line);
             board.push_back(row);
         }
-    }else {
+    } else {
         cout << "Read file failed, path is " << path << endl;
     }
     return board;
@@ -56,33 +58,38 @@ void PrintBoard(vector<vector<State>> board) {
     }
 }
 
-vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]) {
-    cout << "No path found!" << endl;
-    return vector<vector<State>> {};
-}
-
 int Heuristic(int x1, int y1, int x2, int y2) {
-    return abs(x2-x1) + abs(y2-y1);
+    return abs(x2 - x1) + abs(y2 - y1);
 }
 
 void AddToOpen(int x, int y, int g, int h,
-        vector<vector<int>> &openList,
-        vector<vector<State>> &grid) {
+               vector<vector<int>> &openList,
+               vector<vector<State>> &grid) {
     vector<int> node{x, y, g, h};
     openList.push_back(node);
     grid[x][y] = State::kClosed;
 }
 
+vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]) {
+    vector<vector<int>> open{};
+    int x = init[0];
+    int y = init[1];
+    int g = 0;
+    int h = Heuristic(x, y, goal[0], goal[1]);
+    open.push_back(vector<int>{x, y, g, h});
+    return vector<vector<State>>{};
+}
+
 int main() {
 #ifdef _WIN32
- string path = "D:\\Developer\\A-Star-Algorithm\\1.board";
+    string path = "D:\\Developer\\A-Star-Algorithm\\1.board";
 #else
     string path = "/Users/eimlfang/Documents/FZJ/Project/A-Star-Algorithm/1.board";
 #endif
     auto board = ReadBoarderFile(path);
-    PrintBoard(board);
-//    int init[2]{0, 0};
-//    int goal[2]{4, 5};
-//    auto solution = Search(board, init, goal);
-//    PrintBoard(solution);
+//    PrintBoard(board);
+    int init[2]{0, 0};
+    int goal[2]{4, 5};
+    auto solution = Search(board, init, goal);
+    PrintBoard(solution);
 }
