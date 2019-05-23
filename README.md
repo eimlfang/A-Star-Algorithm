@@ -2,5 +2,5 @@
 A* algorithm
 
 ## TODO
-- [ ] cpp17 version
+- [x] cpp17 version
 - [ ] Rust version of A* algorithm
