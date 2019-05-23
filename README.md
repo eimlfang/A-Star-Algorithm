@@ -1,16 +1,8 @@
 # A-Star-Algorithm
 A* algorithm
 
-## A* 算法的核心功能
-### 原理
+A cpp17 version of A* algorithm
 
-A *搜索的工作原理是使用f值对打开的列表进行排序，并使用f值最小的节点作为搜索中的下一个节点。 此过程将继续，直到找到目标节点或打开的列表用完要用于搜索的节点。
-
-### 检查邻近节点
-
-实现A *算法的最后一部分是将相邻节点添加到开放向量的部分。
-
-为了将A *搜索从当前节点扩展到相邻节点，首先需要检查相邻网格单元是否未关闭，并且它们不是障碍物。
-
-### 将A*搜索拓展到邻近节点
-将A *搜索扩展到相邻节点，并将有效邻居添加到open向量中。
+## TODO
+- [ ] A better way to config board file of different OS
+- [ ] Rust version of A* algorithm
